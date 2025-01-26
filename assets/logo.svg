@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733334 67.733334"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer4"
+     transform="matrix(1.0240001,0,0,1.0240001,-0.81280007,-0.81280007)">
+    <g
+       id="layer2">
+      <circle
+         style="fill:#f3dada;fill-opacity:1;stroke:#ffffff;stroke-width:1.26716;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+         id="path8"
+         cx="33.866665"
+         cy="33.866665"
+         r="32.439335" />
+    </g>
+    <g
+       id="layer1">
+      <g
+         id="g8"
+         transform="translate(0,-1.2767731)">
+        <path
+           id="path1"
+           style="fill:#0a943a;fill-opacity:1;stroke:#ffffff;stroke-width:1.32292;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+           d="m 33.866666,12.842196 c -9.636441,0.03328 -18.972861,3.818517 -26.4583325,10.726477 l 7.0672685,8.442379 c 5.563949,-4.860752 12.377355,-7.505441 19.391064,-7.526673 7.013708,0.02123 13.826597,2.66592 19.390548,7.526673 l 7.067785,-8.442379 C 52.839527,16.660713 43.503106,12.875472 33.866666,12.842196 Z m 0,14.646651 c -6.328765,0.03964 -12.476825,2.407124 -17.527095,6.748942 l 6.066296,7.247103 c 3.387884,-2.593658 7.377955,-3.979694 11.460799,-3.981669 4.081811,0.0044 8.069984,1.392367 11.456148,3.986836 l 6.070948,-7.25227 C 46.34349,29.89597 40.19543,27.528487 33.866666,27.488847 Z" />
+        <path
+           d="M 17.58946,53.655843 16.213625,50.988839 23.389136,47.2 v 1.460502 l -7.175511,-3.767673 1.375835,-2.688171 8.21268,4.699008 v 2.05317 z m 9.75787,3.78884 v -2.772838 h 12.848187 v 2.772838 z m 22.775375,-3.78884 -8.21268,-4.699007 v -2.05317 l 8.21268,-4.699008 1.397002,2.688171 -7.196678,3.767673 V 47.2 l 7.196678,3.788839 z"
+           id="text8"
+           style="font-weight:bold;font-size:21.1667px;font-family:Lexend;-inkscape-font-specification:'Lexend Bold';fill:#4f378b;stroke:#ffffff;stroke-width:1.32292;stroke-linecap:round;paint-order:stroke fill markers"
+           aria-label="&gt;_&lt;" />
+      </g>
+    </g>
+  </g>
+</svg>
