@@ -4,6 +4,7 @@ import 'package:moe_wifi_gui/core/theme.dart';
 import 'package:moe_wifi_gui/core/widgets/loading_button.dart';
 import 'package:moe_wifi_gui/models/local_storage.dart';
 import 'package:moe_wifi_gui/models/moe.dart';
+import 'package:moe_wifi_gui/models/refresh_callback.dart';
 
 class QuickLoginRow extends StatelessWidget {
   const QuickLoginRow({super.key});
@@ -37,46 +38,35 @@ class QuickLoginRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           LoadingButton(
-            text: 'Refresh',
-            icon: const Icon(Icons.refresh_rounded),
-            color: CustomTheme.activeColor,
-            width: 40,
-            borderRadius: 12,
-            onTap: () async {
-              await Moe.refreshCookie().timeout(const Duration(seconds: 5),
-                  onTimeout: () {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Timed out.'),
-                    behavior: SnackBarBehavior.floating,
-                  ));
-                }
-              }).onError((e, trace) {
-                if (e is ClientException && context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Not connected to network.'),
-                    behavior: SnackBarBehavior.floating,
-                  ));
-                }
-              });
-            },
-          ),
-          const SizedBox(width: 16),
-          LoadingButton(
             text: 'Login',
-            icon: const Icon(Icons.login_rounded),
+            icon: MediaQuery.sizeOf(context).width > 400
+                ? const Icon(Icons.login_rounded)
+                : null,
+            color: CustomTheme.activeColor,
             onTap: () async {
-              await loginFunction(context).onError((e, trace) {
-                if (e is ClientException && context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Not connected to network.'),
-                    behavior: SnackBarBehavior.floating,
-                  ));
+              await refreshCallback().onError((e, trace) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(e.toString()),
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
                 }
               });
+              if (context.mounted) {
+                await loginFunction(context).onError((e, trace) {
+                  if (e is ClientException && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Not connected to network.'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  }
+                });
+              }
             },
-            width: 40,
-            borderRadius: 12,
           ),
         ],
       ),

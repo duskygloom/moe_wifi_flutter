@@ -6,17 +6,13 @@ class LoadingButton extends StatefulWidget {
     required this.text,
     this.color,
     this.onTap,
-    this.width,
     this.icon,
-    this.borderRadius,
   });
 
   final String text;
   final Future<void> Function()? onTap;
   final Color? color;
-  final double? width;
   final Icon? icon;
-  final double? borderRadius;
 
   @override
   State<LoadingButton> createState() => _LoadingButtonState();
@@ -29,7 +25,7 @@ class _LoadingButtonState extends State<LoadingButton> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.borderRadius ?? 100),
+          borderRadius: BorderRadius.circular(widget.icon == null ? 100 : 12),
           color: widget.color ?? Theme.of(context).colorScheme.primaryContainer,
           border: Border.all(
               color: Colors.white, width: 2, style: BorderStyle.solid)),
@@ -47,7 +43,8 @@ class _LoadingButtonState extends State<LoadingButton> {
           });
         },
         style: ButtonStyle(
-          fixedSize: WidgetStatePropertyAll(Size(widget.width ?? 180, 40)),
+          fixedSize:
+              WidgetStatePropertyAll(Size(widget.icon == null ? 180 : 40, 40)),
         ),
         child: isLoading
             ? const SizedBox.square(

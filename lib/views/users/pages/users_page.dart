@@ -7,7 +7,7 @@ class UsersPage {
 
   static Widget get body => UsersBody(refreshKey: refreshKey);
 
-  static AppBar get appbar {
+  static AppBar appbar(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.transparent,
       title: Text('Users', style: CustomTheme.titleTextTheme),

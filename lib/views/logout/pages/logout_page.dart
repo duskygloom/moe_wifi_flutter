@@ -5,7 +5,7 @@ import 'package:moe_wifi_gui/views/logout/widgets/logout_body.dart';
 class LogoutPage {
   static Widget get body => const LogoutBody();
 
-  static AppBar get appbar {
+  static AppBar appbar(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.transparent,
       title: Text('Logout', style: CustomTheme.titleTextTheme),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html;
 import 'package:moe_wifi_gui/models/local_storage.dart';
@@ -7,8 +8,6 @@ import 'package:moe_wifi_gui/models/session.dart';
 
 class Moe {
   static const baseURL = 'http://122.252.242.93';
-  // google.com, a popular website for DNS based captive
-  // portals like that in android
   static const route = 'http://1.254.254.254';
   static const endpoints = {
     'login': '$baseURL/userportal/newlogin.do',
@@ -24,6 +23,7 @@ class Moe {
   static Future<http.Response> request({
     required String method,
     required String url,
+    bool sendCookies = true,
     bool followRedirects = false,
     Map<String, dynamic>? query,
   }) async {
@@ -32,7 +32,7 @@ class Moe {
       uri = uri.replace(queryParameters: query);
     }
     var request = http.Request(method, uri)..followRedirects = followRedirects;
-    request.headers['cookie'] = Moe.cookie;
+    if (sendCookies) request.headers['cookie'] = Moe.cookie;
     request.headers['user-agent'] = Moe.useragent;
     final stream = await request.send();
     return http.Response.fromStream(stream);
@@ -75,8 +75,14 @@ class Moe {
 
   static Future<void> refreshCookie() async {
     final authURL = await _authURL();
-    print('URL: $authURL');
-    final response = await Moe.request(method: 'GET', url: authURL);
+    if (kDebugMode) {
+      print('URL: $authURL');
+    }
+    final response = await Moe.request(
+      method: 'GET',
+      url: authURL,
+      sendCookies: false,
+    );
     final String cookie = response.headers['set-cookie'] ?? '';
     LocalStorage.putConfig(config: 'cookie', value: cookie);
   }

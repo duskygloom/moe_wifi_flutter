@@ -23,10 +23,6 @@ class Sidebar extends StatelessWidget {
           icon: Icon(Icons.person),
           label: Text('Users'),
         ),
-        NavigationRailDestination(
-          icon: Icon(Icons.settings),
-          label: Text('Settings'),
-        ),
       ],
       labelType: NavigationRailLabelType.all,
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moe_wifi_gui/views/logout/pages/logout_page.dart';
 import 'package:moe_wifi_gui/views/login/pages/login_page.dart';
-import 'package:moe_wifi_gui/views/settings/pages/settings_page.dart';
 import 'package:moe_wifi_gui/views/users/pages/users_page.dart';
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,10 +13,9 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
     return IndexedStack(
       index: index,
       children: [
-        LoginPage.appbar,
-        LogoutPage.appbar,
-        UsersPage.appbar,
-        SettingsPage.appbar,
+        LoginPage.appbar(context),
+        LogoutPage.appbar(context),
+        UsersPage.appbar(context),
       ],
     );
   }

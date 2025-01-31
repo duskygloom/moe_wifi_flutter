@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:moe_wifi_gui/models/local_storage.dart';
 import 'package:moe_wifi_gui/models/moe.dart';
+import 'package:moe_wifi_gui/models/refresh_callback.dart';
 import 'package:moe_wifi_gui/models/session.dart';
 import 'package:moe_wifi_gui/views/logout/widgets/session_card.dart';
 
@@ -17,12 +18,26 @@ class _LogoutBodyState extends State<LogoutBody> {
 
   Future<void> refresh(BuildContext context) async {
     try {
+      await refreshCallback();
       final currentUser = LocalStorage.getConfig('currentUser') ?? '';
       if (currentUser == '') {
         throw Exception('No user selected.');
       }
       final password = LocalStorage.getPassword(currentUser) ?? '';
-      sessions = await Moe.getSessions(currentUser, password);
+      sessions = await Moe.getSessions(currentUser, password).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Timed out.'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
+          return [];
+        },
+      );
       setState(() {});
     } catch (e) {
       if (context.mounted) {

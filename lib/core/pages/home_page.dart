@@ -3,7 +3,6 @@ import 'package:moe_wifi_gui/core/widgets/appbar.dart';
 import 'package:moe_wifi_gui/core/widgets/sidebar.dart';
 import 'package:moe_wifi_gui/views/logout/pages/logout_page.dart';
 import 'package:moe_wifi_gui/views/login/pages/login_page.dart';
-import 'package:moe_wifi_gui/views/settings/pages/settings_page.dart';
 import 'package:moe_wifi_gui/views/users/pages/users_page.dart';
 import 'package:moe_wifi_gui/core/widgets/bottom_bar.dart';
 
@@ -25,7 +24,6 @@ class _HomePageState extends State<HomePage> {
         LoginPage.body,
         LogoutPage.body,
         UsersPage.body,
-        SettingsPage.body,
       ],
     );
     var topbar = Appbar(index: selected);
