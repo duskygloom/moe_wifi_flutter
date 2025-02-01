@@ -3,10 +3,10 @@ output: dist/
 releases:
   - name: linux
     jobs:
-      # - name: release-dev-linux
-      #   package:
-      #     platform: linux
-      #     target: appimage
+      - name: release-dev-linux
+        package:
+          platform: linux
+          target: appimage
       - name: release-dev-android
         package:
           platform: android
