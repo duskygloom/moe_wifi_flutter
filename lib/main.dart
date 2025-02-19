@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:moe_wifi_gui/core/theme.dart';
-import 'package:moe_wifi_gui/core/pages/home_page.dart';
+import 'package:moe_wifi/core/theme.dart';
+import 'package:moe_wifi/core/pages/home_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:logger/logger.dart';
 

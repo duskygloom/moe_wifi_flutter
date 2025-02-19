@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/core/theme.dart';
-import 'package:moe_wifi_gui/views/login/widgets/login_body.dart';
+import 'package:moe_wifi/core/theme.dart';
+import 'package:moe_wifi/views/login/widgets/login_body.dart';
 
 class LoginPage {
   static Widget get body => const LoginBody();

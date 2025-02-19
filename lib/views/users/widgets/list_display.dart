@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moe_wifi_gui/models/local_storage.dart';
+import 'package:moe_wifi/models/local_storage.dart';
 
 class ListDisplay extends StatelessWidget {
   const ListDisplay({super.key, this.phone, this.refreshFunction});

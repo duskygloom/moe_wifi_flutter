@@ -1,4 +1,4 @@
-name: moe_wifi_gui
+name: moe_wifi
 description: "MoE Wi-Fi GUI client."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

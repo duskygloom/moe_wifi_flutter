@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/core/theme.dart';
-import 'package:moe_wifi_gui/models/moe.dart';
-import 'package:moe_wifi_gui/models/session.dart';
+import 'package:moe_wifi/core/theme.dart';
+import 'package:moe_wifi/models/moe.dart';
+import 'package:moe_wifi/models/session.dart';
 
 class SessionCard extends StatelessWidget {
   const SessionCard({

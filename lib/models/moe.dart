@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html;
-import 'package:moe_wifi_gui/models/local_storage.dart';
-import 'package:moe_wifi_gui/models/session.dart';
+import 'package:moe_wifi/models/local_storage.dart';
+import 'package:moe_wifi/models/session.dart';
 
 class Moe {
   static const baseURL = 'http://122.252.242.93';

@@ -1,5 +1,5 @@
 import 'package:http/http.dart';
-import 'package:moe_wifi_gui/models/moe.dart';
+import 'package:moe_wifi/models/moe.dart';
 
 Future<void> refreshCallback() async {
   await Moe.refreshCookie().timeout(

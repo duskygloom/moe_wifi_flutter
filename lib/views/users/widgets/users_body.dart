@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/core/theme.dart';
-import 'package:moe_wifi_gui/core/widgets/appbar.dart';
-import 'package:moe_wifi_gui/models/local_storage.dart';
+import 'package:moe_wifi/core/theme.dart';
+import 'package:moe_wifi/core/widgets/appbar.dart';
+import 'package:moe_wifi/models/local_storage.dart';
 
-import 'package:moe_wifi_gui/views/users/widgets/list_display.dart';
+import 'package:moe_wifi/views/users/widgets/list_display.dart';
 
 class UsersBody extends StatefulWidget {
   const UsersBody({super.key, required this.refreshKey});

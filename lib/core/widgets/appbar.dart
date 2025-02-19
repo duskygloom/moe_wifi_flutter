@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/views/logout/pages/logout_page.dart';
-import 'package:moe_wifi_gui/views/login/pages/login_page.dart';
-import 'package:moe_wifi_gui/views/users/pages/users_page.dart';
+import 'package:moe_wifi/views/logout/pages/logout_page.dart';
+import 'package:moe_wifi/views/login/pages/login_page.dart';
+import 'package:moe_wifi/views/users/pages/users_page.dart';
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
   const Appbar({super.key, required this.index});

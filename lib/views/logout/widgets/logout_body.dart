@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/models/local_storage.dart';
-import 'package:moe_wifi_gui/models/moe.dart';
-import 'package:moe_wifi_gui/models/refresh_callback.dart';
-import 'package:moe_wifi_gui/models/session.dart';
-import 'package:moe_wifi_gui/views/logout/widgets/session_card.dart';
+import 'package:moe_wifi/models/local_storage.dart';
+import 'package:moe_wifi/models/moe.dart';
+import 'package:moe_wifi/models/refresh_callback.dart';
+import 'package:moe_wifi/models/session.dart';
+import 'package:moe_wifi/views/logout/widgets/session_card.dart';
 
 class LogoutBody extends StatefulWidget {
   const LogoutBody({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/models/local_storage.dart';
-import 'package:moe_wifi_gui/core/widgets/loading_button.dart';
-import 'package:moe_wifi_gui/core/widgets/text_input.dart';
-import 'package:moe_wifi_gui/views/login/widgets/quick_login_row.dart';
+import 'package:moe_wifi/models/local_storage.dart';
+import 'package:moe_wifi/core/widgets/loading_button.dart';
+import 'package:moe_wifi/core/widgets/text_input.dart';
+import 'package:moe_wifi/views/login/widgets/quick_login_row.dart';
 
 class AddUserForm extends StatefulWidget {
   const AddUserForm({super.key});

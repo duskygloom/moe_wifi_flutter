@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/core/theme.dart';
-import 'package:moe_wifi_gui/views/users/widgets/users_body.dart';
+import 'package:moe_wifi/core/theme.dart';
+import 'package:moe_wifi/views/users/widgets/users_body.dart';
 
 class UsersPage {
   static final refreshKey = GlobalKey<RefreshIndicatorState>();

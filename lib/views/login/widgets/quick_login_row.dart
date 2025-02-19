@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:moe_wifi_gui/core/theme.dart';
-import 'package:moe_wifi_gui/core/widgets/loading_button.dart';
-import 'package:moe_wifi_gui/models/local_storage.dart';
-import 'package:moe_wifi_gui/models/moe.dart';
-import 'package:moe_wifi_gui/models/refresh_callback.dart';
+import 'package:moe_wifi/core/theme.dart';
+import 'package:moe_wifi/core/widgets/loading_button.dart';
+import 'package:moe_wifi/models/local_storage.dart';
+import 'package:moe_wifi/models/moe.dart';
+import 'package:moe_wifi/models/refresh_callback.dart';
 
 class QuickLoginRow extends StatelessWidget {
   const QuickLoginRow({super.key});

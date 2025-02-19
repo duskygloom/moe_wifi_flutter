@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moe_wifi_gui/core/widgets/appbar.dart';
-import 'package:moe_wifi_gui/core/widgets/sidebar.dart';
-import 'package:moe_wifi_gui/views/logout/pages/logout_page.dart';
-import 'package:moe_wifi_gui/views/login/pages/login_page.dart';
-import 'package:moe_wifi_gui/views/users/pages/users_page.dart';
-import 'package:moe_wifi_gui/core/widgets/bottom_bar.dart';
+import 'package:moe_wifi/core/widgets/appbar.dart';
+import 'package:moe_wifi/core/widgets/sidebar.dart';
+import 'package:moe_wifi/views/logout/pages/logout_page.dart';
+import 'package:moe_wifi/views/login/pages/login_page.dart';
+import 'package:moe_wifi/views/users/pages/users_page.dart';
+import 'package:moe_wifi/core/widgets/bottom_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
