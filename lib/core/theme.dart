@@ -13,6 +13,8 @@ class CustomTheme {
     );
   }
 
+  static const mobileWidth = 600;
+
   static Color get activeColor => const Color.fromARGB(255, 10, 148, 58);
 
   static TextStyle get titleTextTheme =>

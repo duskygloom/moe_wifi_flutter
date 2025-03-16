@@ -6,8 +6,8 @@ import 'package:moe_wifi/models/local_storage.dart';
 import 'package:moe_wifi/models/moe.dart';
 import 'package:moe_wifi/models/refresh_callback.dart';
 
-class QuickLoginRow extends StatelessWidget {
-  const QuickLoginRow({super.key});
+class LoginButtons extends StatelessWidget {
+  const LoginButtons({super.key});
 
   Future<void> loginFunction(BuildContext context) async {
     final currentUser = LocalStorage.getConfig('currentUser') ?? '';

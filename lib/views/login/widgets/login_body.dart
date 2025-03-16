@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moe_wifi/core/theme.dart';
-import 'package:moe_wifi/views/login/widgets/add_user_form.dart';
+import 'package:moe_wifi/views/login/widgets/user_form.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({super.key});
@@ -19,15 +19,21 @@ class LoginBody extends StatelessWidget {
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          child: AddUserForm(),
+          child: UserForm(),
         ),
         const SizedBox(height: 40),
       ],
     );
-    return MediaQuery.sizeOf(context).height < 600
-        ? SingleChildScrollView(
-            child: content,
-          )
-        : content;
+
+    final appWidth = MediaQuery.sizeOf(context).width;
+    final appHeight = MediaQuery.sizeOf(context).height;
+
+    if (appWidth <= CustomTheme.mobileWidth && appHeight < 485) {
+      return SingleChildScrollView(child: content);
+    } else if (appHeight < 405) {
+      return SingleChildScrollView(child: content);
+    } else {
+      return content;
+    }
   }
 }

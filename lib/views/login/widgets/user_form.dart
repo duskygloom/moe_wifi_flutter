@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:moe_wifi/models/local_storage.dart';
 import 'package:moe_wifi/core/widgets/loading_button.dart';
 import 'package:moe_wifi/core/widgets/text_input.dart';
-import 'package:moe_wifi/views/login/widgets/quick_login_row.dart';
+import 'package:moe_wifi/views/login/widgets/login_butttons.dart';
 
-class AddUserForm extends StatefulWidget {
-  const AddUserForm({super.key});
+class UserForm extends StatefulWidget {
+  const UserForm({super.key});
 
   @override
-  State<AddUserForm> createState() => _AddUserFormState();
+  State<UserForm> createState() => _UserFormState();
 }
 
-class _AddUserFormState extends State<AddUserForm> {
+class _UserFormState extends State<UserForm> {
   final formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
@@ -23,8 +23,7 @@ class _AddUserFormState extends State<AddUserForm> {
     super.dispose();
   }
 
-  Future<void> addUserFunction() async {
-    if (!formKey.currentState!.validate()) return;
+  void addUserFunction() {
     LocalStorage.putPassword(
       phoneNumber: phoneController.text,
       password: passwordController.text,
@@ -37,14 +36,25 @@ class _AddUserFormState extends State<AddUserForm> {
 
   @override
   Widget build(BuildContext context) {
-    var widgets = [
+    final passwordNode = FocusNode();
+
+    final widgets = [
       LoadingButton(
         text: 'Add user',
-        onTap: addUserFunction,
+        onTap: () async {
+          if (formKey.currentState!.validate()) {
+            addUserFunction();
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Added user: ${phoneController.text}'),
+              behavior: SnackBarBehavior.floating,
+            ));
+          }
+        },
       ),
       const SizedBox(width: 10, height: 16),
-      const QuickLoginRow(),
+      const LoginButtons(),
     ];
+
     return Form(
       key: formKey,
       child: Column(
@@ -56,7 +66,10 @@ class _AddUserFormState extends State<AddUserForm> {
             isPhone: true,
             isFocused: true,
             isMandatory: true,
-            onEnterPress: addUserFunction,
+            action: TextInputAction.next,
+            onEnterPress: () async {
+              passwordNode.requestFocus();
+            },
           ),
           const SizedBox(height: 10),
           TextInput(
@@ -64,7 +77,17 @@ class _AddUserFormState extends State<AddUserForm> {
             controller: passwordController,
             isObscure: true,
             isMandatory: true,
-            onEnterPress: addUserFunction,
+            focusNode: passwordNode,
+            action: TextInputAction.done,
+            onEnterPress: () async {
+              if (formKey.currentState!.validate()) {
+                addUserFunction();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Added user: ${phoneController.text}'),
+                  behavior: SnackBarBehavior.floating,
+                ));
+              }
+            },
           ),
           const SizedBox(height: 20),
           MediaQuery.sizeOf(context).width > 400

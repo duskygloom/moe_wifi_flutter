@@ -14,6 +14,7 @@ class BottomBar extends StatelessWidget {
         NavigationDestination(icon: Icon(Icons.login), label: 'Login'),
         NavigationDestination(icon: Icon(Icons.logout), label: 'Logout'),
         NavigationDestination(icon: Icon(Icons.person), label: 'Users'),
+        NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
       ],
       selectedIndex: selected,
       onDestinationSelected: onDestinationSelected,

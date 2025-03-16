@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:moe_wifi/core/theme.dart';
 import 'package:moe_wifi/core/widgets/appbar.dart';
 import 'package:moe_wifi/core/widgets/sidebar.dart';
 import 'package:moe_wifi/views/logout/pages/logout_page.dart';
 import 'package:moe_wifi/views/login/pages/login_page.dart';
+import 'package:moe_wifi/views/settings/pages/settings_page.dart';
 import 'package:moe_wifi/views/users/pages/users_page.dart';
 import 'package:moe_wifi/core/widgets/bottom_bar.dart';
 
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
         LoginPage.body,
         LogoutPage.body,
         UsersPage.body,
+        SettingsPage.body,
       ],
     );
     var topbar = Appbar(index: selected);
@@ -43,16 +46,16 @@ class _HomePageState extends State<HomePage> {
         });
     return Scaffold(
       appBar: topbar,
-      body: MediaQuery.sizeOf(context).width > 600
-          ? Row(
-              children: [
-                Expanded(child: body),
-                sidebar,
-              ],
-            )
+      body: MediaQuery.sizeOf(context).width > CustomTheme.mobileWidth
+          ? Row(children: [
+              Expanded(child: body),
+              sidebar,
+            ])
           : body,
       bottomNavigationBar:
-          MediaQuery.sizeOf(context).width > 600 ? null : navigationBar,
+          MediaQuery.sizeOf(context).width > CustomTheme.mobileWidth
+              ? null
+              : navigationBar,
     );
   }
 }

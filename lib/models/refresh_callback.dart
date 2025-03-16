@@ -11,6 +11,9 @@ Future<void> refreshCallback() async {
     (e, trace) {
       if (e is ClientException) {
         throw Exception('Not connected to network.');
+      } else {
+        // throw Exception('Something went wrong...');
+        throw e.toString();
       }
     },
   );

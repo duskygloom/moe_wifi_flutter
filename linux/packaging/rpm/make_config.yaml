@@ -1,0 +1,23 @@
+icon: assets/logo.svg
+vendor: duskygloom
+packager: duskygloom
+packagerEmail: duskygloom708@gmail.com
+license: GPLv3
+url: https://github.com/duskygloom/moe_wifi_flutter
+
+display_name: MoE Wi-Fi
+
+keywords:
+  - moe
+  - wifi
+
+generic_name: MoE Wi-Fi
+
+categories:
+  - Utility
+
+startup_notify: true
+
+# You can also specify [metainfo](https://freedesktop.org/software/appstream/docs/chap-Quickstart.html) file
+# which contains metadata of the app.
+# metainfo: linux/packaging/myappid.appdata.xml

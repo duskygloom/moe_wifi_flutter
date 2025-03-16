@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Sidebar extends StatelessWidget {
-  const Sidebar(
-      {super.key, required this.selected, required this.onDestinationSelected});
+  const Sidebar({
+    super.key,
+    required this.selected,
+    required this.onDestinationSelected,
+  });
 
   final int selected;
   final void Function(int) onDestinationSelected;
@@ -22,6 +25,10 @@ class Sidebar extends StatelessWidget {
         NavigationRailDestination(
           icon: Icon(Icons.person),
           label: Text('Users'),
+        ),
+        NavigationRailDestination(
+          icon: Icon(Icons.settings),
+          label: Text('Settings'),
         ),
       ],
       labelType: NavigationRailLabelType.all,

@@ -3,21 +3,27 @@ import 'package:flutter/material.dart';
 class TextInput extends StatelessWidget {
   const TextInput({
     super.key,
-    required this.hintText,
     required this.controller,
+    this.hintText,
+    this.labelText,
     this.isPhone = false,
     this.isObscure = false,
     this.isFocused = false,
     this.isMandatory = false,
     this.onEnterPress,
+    this.action,
+    this.focusNode,
   });
 
-  final String hintText;
+  final String? hintText;
+  final String? labelText;
   final TextEditingController controller;
   final bool isPhone;
   final bool isFocused;
   final bool isObscure;
   final bool isMandatory;
+  final TextInputAction? action;
+  final FocusNode? focusNode;
   final Future<void> Function()? onEnterPress;
 
   @override
@@ -31,6 +37,7 @@ class TextInput extends StatelessWidget {
         style: Theme.of(context).inputDecorationTheme.hintStyle,
         decoration: InputDecoration(
           hintText: hintText,
+          labelText: labelText,
         ),
         validator: isMandatory
             ? (value) {
@@ -46,6 +53,8 @@ class TextInput extends StatelessWidget {
         obscureText: isObscure,
         autofocus: isFocused,
         keyboardType: isPhone ? TextInputType.phone : null,
+        textInputAction: action,
+        focusNode: focusNode,
       ),
     );
   }

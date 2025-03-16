@@ -8,7 +8,10 @@ import 'package:moe_wifi/models/session.dart';
 
 class Moe {
   static const baseURL = 'http://122.252.242.93';
-  static const route = 'http://1.254.254.254';
+
+  static String get route =>
+      LocalStorage.getConfig('route') ?? 'http://1.254.254.254';
+
   static const endpoints = {
     'login': '$baseURL/userportal/newlogin.do',
     'logout': '$baseURL/userportal/logout.do',
@@ -39,6 +42,22 @@ class Moe {
   }
 
   static Future<String> _authURL() async {
+    // if ip, mac and sc are in localstorage, use them
+    final configIP = LocalStorage.getConfig('ip') ?? '';
+    final configMAC = LocalStorage.getConfig('mac') ?? '';
+    final configCode = LocalStorage.getConfig('code') ?? '';
+    if (configIP.isNotEmpty && configMAC.isNotEmpty && configCode.isNotEmpty) {
+      return Uri.http(baseURL, '/userportal/', {
+        'requestURI': '$route/?',
+        'ip': configIP,
+        'mac': configMAC,
+        'nas': 'santiniketan',
+        'requestip': route,
+        'sc': configCode,
+        'interface': 'cpeth1',
+      }).toString();
+    }
+    // else get URL from redirection
     final response = await Moe.request(
       method: 'GET',
       url: route,
@@ -51,25 +70,11 @@ class Moe {
         const prefix = '1;URL=';
         final content = attributes['content'] ?? '';
         if (content.startsWith(prefix)) {
-          final original = content.substring(prefix.length);
-          final configIP = LocalStorage.getConfig('ip') ?? '';
-          final configMAC = LocalStorage.getConfig('mac') ?? '';
-          if (configIP.isEmpty && configMAC.isEmpty) return original;
-          final originalUri = Uri.parse(original);
-          Map<String, String> parameters =
-              Map.from(originalUri.queryParameters);
-          if (configIP.isNotEmpty) {
-            parameters['ip'] = configIP;
-          }
-          if (configMAC.isNotEmpty) {
-            parameters['mac'] = configMAC;
-          }
-          final updatedUri =
-              Uri.http(originalUri.authority, '/userportal/', parameters);
-          return updatedUri.toString();
+          return content.substring(prefix.length);
         }
       }
     }
+    // not found
     throw Exception('Failed to fetch auth URL from route: ${Moe.route}');
   }
 
