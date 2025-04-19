@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moe_wifi/models/local_storage.dart';
 import 'package:moe_wifi/core/widgets/loading_button.dart';
 import 'package:moe_wifi/core/widgets/text_input.dart';
+import 'package:searchfield/searchfield.dart';
 
 class SettingsForm extends StatefulWidget {
   const SettingsForm({super.key});
@@ -12,14 +13,18 @@ class SettingsForm extends StatefulWidget {
 
 class _SettingsFormState extends State<SettingsForm> {
   final formKey = GlobalKey<FormState>();
-  final routeController =
-      TextEditingController(text: LocalStorage.getConfig('route'));
-  final ipController =
-      TextEditingController(text: LocalStorage.getConfig('ip'));
-  final macController =
-      TextEditingController(text: LocalStorage.getConfig('mac'));
-  final codeController =
-      TextEditingController(text: LocalStorage.getConfig('code'));
+  final routeController = TextEditingController(text: LocalStorage.route);
+  late TextEditingController timeoutController;
+  final ipController = TextEditingController(text: LocalStorage.ip);
+  final macController = TextEditingController(text: LocalStorage.mac);
+  final codeController = TextEditingController(text: LocalStorage.sessCode);
+
+  @override
+  void initState() {
+    super.initState();
+    final timeoutText = LocalStorage.timeoutInMillis.toString();
+    timeoutController = TextEditingController(text: timeoutText);
+  }
 
   @override
   void dispose() {
@@ -31,10 +36,10 @@ class _SettingsFormState extends State<SettingsForm> {
   }
 
   void saveFunction() {
-    LocalStorage.putConfig(config: 'route', value: routeController.text);
-    LocalStorage.putConfig(config: 'ip', value: ipController.text);
-    LocalStorage.putConfig(config: 'mac', value: macController.text);
-    LocalStorage.putConfig(config: 'code', value: codeController.text);
+    LocalStorage.route = routeController.text;
+    LocalStorage.ip = ipController.text;
+    LocalStorage.mac = macController.text;
+    LocalStorage.sessCode = codeController.text;
   }
 
   @override
@@ -62,27 +67,39 @@ class _SettingsFormState extends State<SettingsForm> {
       'http://connectivitycheck.gstatic.com',
     ];
 
+    final routeMap = {
+      for (var element in routes) element: SearchFieldListItem<String>(element)
+    };
+
     return Form(
       key: formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          DropdownMenu(
-            label: const Text('Route'),
-            controller: routeController,
+          SizedBox(
             width: 600,
-            onSelected: (value) {
-              ipFocus.requestFocus();
-            },
-            dropdownMenuEntries: routes.map((route) {
-              return DropdownMenuEntry(label: route, value: route);
-            }).toList(),
+            child: SearchField<String>(
+              controller: routeController,
+              suggestions: routeMap.values.toList(),
+              selectedValue: routeMap[LocalStorage.route],
+              onSubmit: (value) {
+                ipFocus.requestFocus();
+              },
+              textInputAction: TextInputAction.next,
+              searchInputDecoration: SearchInputDecoration(
+                label: const Text('Route'),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          TextInput(
+            labelText: 'Timeout (ms)',
+            controller: timeoutController,
           ),
           const SizedBox(height: 10),
           TextInput(
             labelText: 'IP',
             controller: ipController,
-            isObscure: true,
             focusNode: ipFocus,
             action: TextInputAction.next,
             onEnterPress: () async {
@@ -93,7 +110,6 @@ class _SettingsFormState extends State<SettingsForm> {
           TextInput(
             labelText: 'MAC',
             controller: macController,
-            isObscure: true,
             focusNode: macFocus,
             action: TextInputAction.next,
             onEnterPress: () async {
@@ -104,7 +120,6 @@ class _SettingsFormState extends State<SettingsForm> {
           TextInput(
             labelText: 'Code',
             controller: codeController,
-            isObscure: true,
             focusNode: codeFocus,
             action: TextInputAction.done,
             onEnterPress: () async {

@@ -43,6 +43,7 @@ dependencies:
   http: ^1.2.2
   html: ^0.15.5
   google_fonts: ^6.2.1
+  searchfield: ^1.2.6
 
 dev_dependencies:
   flutter_test:

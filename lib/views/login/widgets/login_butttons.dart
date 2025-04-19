@@ -10,12 +10,12 @@ class LoginButtons extends StatelessWidget {
   const LoginButtons({super.key});
 
   Future<void> loginFunction(BuildContext context) async {
-    final currentUser = LocalStorage.getConfig('currentUser') ?? '';
+    final currentUser = LocalStorage.currentUser;
     var message = '';
     if (currentUser == '') {
       message = 'No user selected.';
     } else {
-      final password = LocalStorage.getPassword(currentUser) ?? '';
+      final password = LocalStorage.currentUser;
       if (password == '') {
         message = 'No such user exists.';
       } else {
@@ -44,7 +44,7 @@ class LoginButtons extends StatelessWidget {
                 : null,
             color: CustomTheme.activeColor,
             onTap: () async {
-              await refreshCallback().onError((e, trace) {
+              await refreshCallback(LocalStorage.route).onError((e, trace) {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

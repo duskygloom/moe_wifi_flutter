@@ -18,12 +18,12 @@ class _LogoutBodyState extends State<LogoutBody> {
 
   Future<void> refresh(BuildContext context) async {
     try {
-      await refreshCallback();
-      final currentUser = LocalStorage.getConfig('currentUser') ?? '';
+      await refreshCallback('http://1.254.254.254');
+      final currentUser = LocalStorage.currentUser;
       if (currentUser == '') {
         throw Exception('No user selected.');
       }
-      final password = LocalStorage.getPassword(currentUser) ?? '';
+      final password = LocalStorage.currentUser;
       sessions = await Moe.getSessions(currentUser, password).timeout(
         const Duration(seconds: 5),
         onTimeout: () {

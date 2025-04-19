@@ -64,10 +64,10 @@ class _UsersBodyState extends State<UsersBody> {
                   maxWidth: 600,
                   minHeight: minHeight,
                 ),
-                child: LocalStorage.length > 0
+                child: LocalStorage.usersLength > 0
                     ? Column(
                         children: List<Widget>.generate(
-                            2 * LocalStorage.length - 1, (index) {
+                            2 * LocalStorage.usersLength - 1, (index) {
                         if (index % 2 == 0) {
                           return ListDisplay(
                             phone: keys[index ~/ 2],

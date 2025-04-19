@@ -24,14 +24,11 @@ class _UserFormState extends State<UserForm> {
   }
 
   void addUserFunction() {
-    LocalStorage.putPassword(
+    LocalStorage.addUser(
       phoneNumber: phoneController.text,
       password: passwordController.text,
     );
-    LocalStorage.putConfig(
-      config: 'currentUser',
-      value: phoneController.text,
-    );
+    LocalStorage.currentUser = phoneController.text;
   }
 
   @override

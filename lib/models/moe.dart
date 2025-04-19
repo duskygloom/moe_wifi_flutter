@@ -9,8 +9,10 @@ import 'package:moe_wifi/models/session.dart';
 class Moe {
   static const baseURL = 'http://122.252.242.93';
 
-  static String get route =>
-      LocalStorage.getConfig('route') ?? 'http://1.254.254.254';
+  static String get route {
+    final route = LocalStorage.route;
+    return route == '' ? 'http://1.254.254.254' : route;
+  }
 
   static const endpoints = {
     'login': '$baseURL/userportal/newlogin.do',
@@ -18,7 +20,7 @@ class Moe {
     'home': '$baseURL/userportal/home.do'
   };
 
-  static String get cookie => LocalStorage.getConfig('cookie') ?? '';
+  static String get cookie => LocalStorage.cookie;
 
   static const String useragent =
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0';
@@ -41,11 +43,11 @@ class Moe {
     return http.Response.fromStream(stream);
   }
 
-  static Future<String> _authURL() async {
+  static Future<String> _authURL(String route) async {
     // if ip, mac and sc are in localstorage, use them
-    final configIP = LocalStorage.getConfig('ip') ?? '';
-    final configMAC = LocalStorage.getConfig('mac') ?? '';
-    final configCode = LocalStorage.getConfig('code') ?? '';
+    final configIP = LocalStorage.ip;
+    final configMAC = LocalStorage.mac;
+    final configCode = LocalStorage.sessCode;
     if (configIP.isNotEmpty && configMAC.isNotEmpty && configCode.isNotEmpty) {
       return Uri.http(baseURL, '/userportal/', {
         'requestURI': '$route/?',
@@ -78,8 +80,8 @@ class Moe {
     throw Exception('Failed to fetch auth URL from route: ${Moe.route}');
   }
 
-  static Future<void> refreshCookie() async {
-    final authURL = await _authURL();
+  static Future<void> refreshCookie(String route) async {
+    final authURL = await _authURL(route);
     if (kDebugMode) {
       print('URL: $authURL');
     }
@@ -89,7 +91,7 @@ class Moe {
       sendCookies: false,
     );
     final String cookie = response.headers['set-cookie'] ?? '';
-    LocalStorage.putConfig(config: 'cookie', value: cookie);
+    LocalStorage.cookie = cookie;
   }
 
   static Future<String> login(String phone, String password) async {

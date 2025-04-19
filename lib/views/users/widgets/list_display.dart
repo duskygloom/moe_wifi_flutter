@@ -34,8 +34,8 @@ class ListDisplay extends StatelessWidget {
           ));
     }
 
-    final currentUser = LocalStorage.getConfig('currentUser');
-    final password = LocalStorage.getPassword(phone ?? '') ?? '';
+    final currentUser = LocalStorage.currentUser;
+    final password = LocalStorage.getPassword(phone ?? '');
     final hiddenPassword = '*' * password.length;
 
     return Padding(
@@ -59,10 +59,7 @@ class ListDisplay extends StatelessWidget {
                 )),
             IconButton(
               onPressed: () async {
-                LocalStorage.putConfig(
-                  config: 'currentUser',
-                  value: phone ?? '',
-                );
+                LocalStorage.currentUser = phone ?? '';
                 if (refreshFunction != null) {
                   await refreshFunction!();
                 }
