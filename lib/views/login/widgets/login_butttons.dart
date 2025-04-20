@@ -44,7 +44,9 @@ class LoginButtons extends StatelessWidget {
                 : null,
             color: CustomTheme.activeColor,
             onTap: () async {
+              var ok = true;
               await refreshCallback(LocalStorage.route).onError((e, trace) {
+                ok = false;
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -54,6 +56,7 @@ class LoginButtons extends StatelessWidget {
                   );
                 }
               });
+              if (!ok) return;
               if (context.mounted) {
                 await loginFunction(context).onError((e, trace) {
                   if (e is ClientException && context.mounted) {
