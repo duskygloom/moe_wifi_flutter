@@ -84,6 +84,7 @@ class _SettingsFormState extends State<SettingsForm> {
               selectedValue: routeMap[LocalStorage.route],
               onSubmit: (value) {
                 ipFocus.requestFocus();
+                LocalStorage.route = value;
               },
               textInputAction: TextInputAction.next,
               searchInputDecoration: SearchInputDecoration(
