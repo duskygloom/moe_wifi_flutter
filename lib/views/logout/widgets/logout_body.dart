@@ -16,48 +16,51 @@ class LogoutBody extends StatefulWidget {
 class _LogoutBodyState extends State<LogoutBody> {
   List<Session> sessions = [];
 
-  Future<void> refresh(BuildContext context) async {
+  Future<String> refresh() async {
     try {
       await refreshCallback('http://1.254.254.254');
       final currentUser = LocalStorage.currentUser;
       if (currentUser == '') {
-        throw Exception('No user selected.');
+        return 'No user selected.';
       }
-      final password = LocalStorage.currentUser;
+      final password = LocalStorage.getPassword(currentUser);
+      if (password == '') {
+        return 'No such user exists.';
+      }
+      var message = '';
       sessions = await Moe.getSessions(currentUser, password).timeout(
-        const Duration(seconds: 5),
+        Duration(milliseconds: LocalStorage.timeoutInMillis),
         onTimeout: () {
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Timed out.'),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          }
+          message = 'Timeout.';
           return [];
         },
       );
       setState(() {});
+      return message;
     } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
+      return 'Encountered an unhandled exception.';
     }
-    await Future.delayed(const Duration(seconds: 1));
   }
 
   @override
   Widget build(BuildContext context) {
+    refreshFunction() async {
+      final r = await refresh();
+      if (r != '') {
+        // something happened
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(r),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    }
+
     return RefreshIndicator(
-      onRefresh: () async {
-        await refresh(context);
-      },
+      onRefresh: refreshFunction,
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(
           dragDevices: {
@@ -77,7 +80,7 @@ class _LogoutBodyState extends State<LogoutBody> {
               itemBuilder: (context, index) {
                 return SessionCard(
                   session: index < sessions.length ? sessions[index] : null,
-                  refreshFunction: () async => await refresh(context),
+                  refreshFunction: refreshFunction,
                 );
               },
             ),

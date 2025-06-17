@@ -9,24 +9,19 @@ import 'package:moe_wifi/models/refresh_callback.dart';
 class LoginButtons extends StatelessWidget {
   const LoginButtons({super.key});
 
-  Future<void> loginFunction(BuildContext context) async {
+  Future<String> loginFunction() async {
     final currentUser = LocalStorage.currentUser;
-    var message = '';
     if (currentUser == '') {
-      message = 'No user selected.';
+      return 'No user selected.';
     } else {
       final password = LocalStorage.currentUser;
       if (password == '') {
-        message = 'No such user exists.';
+        return 'No such user exists.';
       } else {
-        message = await Moe.login(currentUser, password)
-            .timeout(const Duration(seconds: 5), onTimeout: () => 'Timed out.');
+        return await Moe.login(currentUser, password).timeout(
+            Duration(milliseconds: LocalStorage.timeoutInMillis),
+            onTimeout: () => 'Timed out.');
       }
-    }
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
-      );
     }
   }
 
@@ -44,30 +39,25 @@ class LoginButtons extends StatelessWidget {
                 : null,
             color: CustomTheme.activeColor,
             onTap: () async {
-              var ok = true;
-              await refreshCallback(LocalStorage.route).onError((e, trace) {
-                ok = false;
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(e.toString()),
-                      behavior: SnackBarBehavior.floating,
-                    ),
-                  );
+              final route = LocalStorage.route.isEmpty
+                  ? 'http://1.254.254.254'
+                  : LocalStorage.route;
+              await refreshCallback(route);
+              final message = await loginFunction().onError((e, trace) {
+                if (e is ClientException) {
+                  return 'Not connected to network.';
+                } else {
+                  return 'Encountered an unhandled exception.';
                 }
               });
-              if (!ok) return;
+              // say something about the process
               if (context.mounted) {
-                await loginFunction(context).onError((e, trace) {
-                  if (e is ClientException && context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Not connected to network.'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  }
-                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(message),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
               }
             },
           ),

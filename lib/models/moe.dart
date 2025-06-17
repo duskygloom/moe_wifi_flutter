@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html;
 import 'package:moe_wifi/models/local_storage.dart';
@@ -82,16 +81,13 @@ class Moe {
 
   static Future<void> refreshCookie(String route) async {
     final authURL = await _authURL(route);
-    if (kDebugMode) {
-      print('URL: $authURL');
-    }
     final response = await Moe.request(
       method: 'GET',
       url: authURL,
       sendCookies: false,
     );
     final String cookie = response.headers['set-cookie'] ?? '';
-    LocalStorage.cookie = cookie;
+    LocalStorage.cookie = cookie.split(';')[0];
   }
 
   static Future<String> login(String phone, String password) async {
@@ -153,7 +149,6 @@ class Moe {
     } else {
       for (final row in table.querySelectorAll('tbody tr')) {
         sessions.add(Session.fromRowElement(row));
-        // sessions.last.printSession();
       }
     }
     return sessions;

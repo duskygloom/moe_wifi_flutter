@@ -84,10 +84,6 @@ class SessionCard extends StatelessWidget {
                       ]),
                     ],
                   ),
-            // Text(
-            //     session.toString(),
-            //     style: CustomTheme.titleTextTheme,
-            //   ),
           ),
         ),
       ),
