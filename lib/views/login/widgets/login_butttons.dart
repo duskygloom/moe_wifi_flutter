@@ -14,7 +14,7 @@ class LoginButtons extends StatelessWidget {
     if (currentUser == '') {
       return 'No user selected.';
     } else {
-      final password = LocalStorage.currentUser;
+      final password = LocalStorage.getPassword(currentUser);
       if (password == '') {
         return 'No such user exists.';
       } else {
