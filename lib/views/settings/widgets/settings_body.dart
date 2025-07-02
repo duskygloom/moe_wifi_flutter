@@ -12,17 +12,12 @@ class SettingsBody extends StatelessWidget {
     final appHeight = MediaQuery.sizeOf(context).height;
     final totalPadding = appWidth > contentWidth ? appWidth - contentWidth : 40;
 
-    var content = Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: totalPadding / 2,
-            vertical: 20,
-          ),
-          child: const SettingsForm(),
-        ),
-      ],
+    var content = Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: totalPadding / 2,
+        vertical: 20,
+      ),
+      child: const SettingsForm(),
     );
 
     if (appWidth <= CustomTheme.mobileWidth && appHeight < 472) {

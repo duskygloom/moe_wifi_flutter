@@ -1,5 +1,5 @@
 ### **Upcoming features in 1.0.3:**
-1. Display IP, MAC and session code from the auth URL in the local storage if they are not set.
+<!-- 1. Display IP, MAC and session code from the auth URL in the local storage if they are not set. -->
 <!-- 2. Custom route should only be used during login, during logout 1.254.254.254 should be used. -->
 <!-- 3. Tidy up the local storage API. -->
 <!-- 4. A good way to provide route suggestions. -->

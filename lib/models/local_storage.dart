@@ -38,7 +38,7 @@ class LocalStorage {
   static set ip(String ip) => _putConfig('ip', ip);
 
   static String get mac => _getConfig('mac'); // mac
-  static set mac(String mac) => _putConfig('route', mac);
+  static set mac(String mac) => _putConfig('mac', mac);
 
   static String get sessCode => _getConfig('sessCode'); // session code
   static set sessCode(String code) => _putConfig('sessCode', code);

@@ -13,6 +13,9 @@ class TextInput extends StatelessWidget {
     this.onEnterPress,
     this.action,
     this.focusNode,
+    this.onTap,
+    this.onTapOutside,
+    this.onChanged,
   });
 
   final String? hintText;
@@ -25,6 +28,9 @@ class TextInput extends StatelessWidget {
   final TextInputAction? action;
   final FocusNode? focusNode;
   final Future<void> Function()? onEnterPress;
+  final Future<void> Function()? onTap;
+  final Future<void> Function()? onTapOutside;
+  final Future<void> Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +52,13 @@ class TextInput extends StatelessWidget {
               }
             : null,
         onEditingComplete: () async {
-          if (onEnterPress != null) {
-            await onEnterPress!();
-          }
+          if (onEnterPress != null) await onEnterPress!();
         },
+        onTap: onTap,
+        onTapOutside: (_) async {
+          if (onTapOutside != null) await onTapOutside!();
+        },
+        onChanged: onChanged,
         obscureText: isObscure,
         autofocus: isFocused,
         keyboardType: isPhone ? TextInputType.phone : null,

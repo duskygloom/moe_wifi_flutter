@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -38,11 +39,20 @@ class Moe {
     var request = http.Request(method, uri)..followRedirects = followRedirects;
     if (sendCookies) request.headers['cookie'] = Moe.cookie;
     request.headers['user-agent'] = Moe.useragent;
-    final stream = await request.send();
+
+    final stream = await request
+        .send()
+        .timeout(Duration(milliseconds: LocalStorage.timeoutInMillis))
+        .onError((e, trace) {
+      if (e is TimeoutException) {
+        throw Exception('Request timed out.');
+      }
+      throw Exception('Encountered an unhandled exception.');
+    });
     return http.Response.fromStream(stream);
   }
 
-  static Future<String> _authURL(String route) async {
+  static Future<String> authUrl(String route) async {
     // if ip, mac and sc are in localstorage, use them
     final configIP = LocalStorage.ip;
     final configMAC = LocalStorage.mac;
@@ -80,7 +90,7 @@ class Moe {
   }
 
   static Future<void> refreshCookie(String route) async {
-    final authURL = await _authURL(route);
+    final authURL = await authUrl(route);
     final response = await Moe.request(
       method: 'GET',
       url: authURL,
